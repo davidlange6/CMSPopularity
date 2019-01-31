@@ -122,6 +122,7 @@ def loadOptions():
     global baseDir, outputDir, loadPhedexMeans, loadClassAds, intervals, testDS, maxPop
     global phedexDataFile, dbsInput, popularitySource, loadPopDB, iformat
     global classAdsInput, intervalStartStrings, intervalEndString, dataTypes
+    global use_only_tier2, overridesJson
 
     baseDir = opts.baseDir
     outputDir = opts.outputDir
