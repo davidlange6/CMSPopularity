@@ -44,6 +44,9 @@ iformat = 'pdf'
 #some datasets to use for testing
 testDS = "/ZprimeToTT_M-2500_W-250_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM"
 
+#some datasets we know miss their reads - like anything used as secondary input
+overridesJson="overrides.json"
+
 #the end of the popularity plot
 maxPop = 15
 
@@ -108,6 +111,8 @@ class OptionParser():
             dest="iformat", default=iformat, help="Image format, default png")
         self.parser.add_argument("--useOnlyTier2", action="store_true",
             dest="use_only_tier2", default=False, help="Phedex data only on tier-2 rather than tier-1+tier-2, default False")
+        self.parser.add_argument("--overridesJson", action="store", dest="overridesJson", 
+                                 default=overridesJson, help="json of popularities") 
 
 def loadOptions():
     "Load all options"
@@ -138,6 +143,9 @@ def loadOptions():
     popularitySource = opts.popularitySource
     dbsInput = opts.dbsInput
     iformat = opts.iformat
+    use_only_tier2 = opts.use_only_tier2
+    overridesJson = opts.overridesJson
+
     if not os.path.exists(outputDir):
         os.makedirs(outputDir)
 

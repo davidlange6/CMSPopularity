@@ -32,6 +32,17 @@ def plots(phedexInfo, dbsInfo, classadsInfo, iformat):
     "Generate popularity plots from phedex/dbs/classads dicts"
     #file to dump dataset by dataset tallies
 
+    #read in any overrides that there are
+    myF = fopen(os.path.join(baseDir, 'overrides.json'))
+
+    myJInput=''
+    for line in myF:
+        myJInput += line
+
+    overrides=json.loads(myJInput)
+    override_datasets= overrides.keys()
+    print "Datasets to override are", override_datasets
+
     fDump=fopen(os.path.join(outputDir, 'dumpIt.txt.gz'), 'w')
 
     keyInfos={}
@@ -106,6 +117,9 @@ def plots(phedexInfo, dbsInfo, classadsInfo, iformat):
                     counter=(classadsInfo[dsKey].get(dataset,0))/nCopies
                 else:
                     counter=(classadsInfo[dsKey].get(dataset,0)) #this ought to be 0
+
+                # some things we know are very popular but not counted
+                counter=overrides.get(dataset,counter)
 
                 if counter > 0 and counter < 1:
                     # any access to the dataset counts - so round up
