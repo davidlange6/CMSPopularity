@@ -123,6 +123,8 @@ def readSizes():
         #again, skip relvals here - even if there should be none
         if "/RelVal" in dataset: 
             continue
+        if "NANO" in dataset:
+            continue #monitoring is blind to these currently - just exclude them
         #create the arrays
         cacheES={k : numpy.zeros(nDays) for k in esDictKeys}
         for key,val in cacheES.iteritems():

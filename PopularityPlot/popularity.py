@@ -18,6 +18,7 @@ from utils import fopen
 from classadInput import readClassAds, saveClassAds
 from popDBInput import readPopDB, savePopDB
 from classadInput import saveClassAds
+import json
 
 # some parameters set by the user
 from inputs import maxPop,divideByNCopies
@@ -33,7 +34,7 @@ def plots(phedexInfo, dbsInfo, classadsInfo, iformat):
     #file to dump dataset by dataset tallies
 
     #read in any overrides that there are
-    myF = fopen(os.path.join(baseDir, 'overrides.json'))
+    myF = fopen('overrides.json')
 
     myJInput=''
     for line in myF:
