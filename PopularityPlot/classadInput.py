@@ -85,6 +85,12 @@ def saveClassAds(dbsInfo):
                         nEvts = 1.
                     if dataset not in datasetDetails:
                         datasetDetails[dataset] = {}
+                    try:
+                       f1=float(sp[6])
+                       f2=float(nEvts)
+                    except ValueError:
+                       print 'Error converting to float',sp[6],'or',nEvts,'from',line,
+                       continue 
                     datasetDetails[dataset][dVal] = datasetDetails[dataset].get(dVal,0)+ float(sp[6])*1000/float(nEvts)  
 
                     for dateStart in startKeys:

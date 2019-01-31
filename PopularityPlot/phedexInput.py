@@ -136,7 +136,7 @@ def readSizes():
             #skip things that are not T1 or T2
             if not site.startswith("T1") and not site.startswith("T2"):
                 continue 
-            if not use_only_tier2 and not site.startswith("T2"):
+            if use_only_tier2 and not site.startswith("T2"):
                 continue 
 
             #get the detailed phedex information for this replica
