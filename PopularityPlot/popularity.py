@@ -147,7 +147,10 @@ def plots(phedexInfo, dbsInfo, classadsInfo, iformat):
                     print "Pop counter for",key,cat,"is", counter
 
                 if cat=="AllOps":
-                    fDump.write('%5d %7.5f %15s %s \n' % (counter,m,key,dataset))
+                    sTmp=-1.
+                    if sizeDataset is not None:
+                        sTmp=sizeDataset
+                    fDump.write('%5d %7.5f %15s %s %7.5f \n' % (counter,m,key,dataset,m/sTmp))
 
     fDump.close()
 

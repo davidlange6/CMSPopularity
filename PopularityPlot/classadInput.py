@@ -32,6 +32,8 @@ def saveClassAds(dbsInfo):
             fName = os.path.join(root, name)
             headers = []
             skip = False
+            nBad=0
+            nGood=0
             with fopen(fName, 'rb') as istream:
                 for line in istream:
                     sp = line.split(',')
@@ -88,9 +90,13 @@ def saveClassAds(dbsInfo):
                     try:
                        f1=float(sp[6])
                        f2=float(nEvts)
+                       nGood=nGood+1
                     except ValueError:
-                       print 'Error converting to float',sp[6],'or',nEvts,'from',line,
-                       continue 
+                       if nBad < 3: 
+                           print 'Error converting to float',sp[6],'or',nEvts,'from',line,
+                       #continue
+                       sp[6]=1 
+                       nBad=nBad+1
                     datasetDetails[dataset][dVal] = datasetDetails[dataset].get(dVal,0)+ float(sp[6])*1000/float(nEvts)  
 
                     for dateStart in startKeys:
@@ -99,8 +105,9 @@ def saveClassAds(dbsInfo):
 
 
             if not skip:
+#               print("%3d %s %s %s %s %s" % (idx, name, nNull/float(nNonNull+nNull+nNullEvts+1e-5), nNullEvts/float(nNonNull+nNull+nNullEvts+1e-5),str(nGood),str(nBad))
                 try:
-                    print("%3d %s %s %s" % (idx, name, nNull/float(nNonNull+nNull+nNullEvts+1e-5), nNullEvts/float(nNonNull+nNull+nNullEvts+1e-5)))
+                    print("%3d %s %s %s %s %s" % (idx, name, nNull/float(nNonNull+nNull+nNullEvts+1e-5), nNullEvts/float(nNonNull+nNull+nNullEvts+1e-5),str(nGood),str(nBad)))
                 except:
                     pass
 
